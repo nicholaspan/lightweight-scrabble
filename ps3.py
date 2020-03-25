@@ -213,8 +213,24 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    word_lower = word.lower()
+    
+    if word_lower in word_list:
+        word_dictionary = get_frequency_dict(word_lower)
+        for l in word_dictionary.keys():
+            if l not in hand.keys():
+                print("You do not have letter "+l+" in your hand!")
+                return False
+            elif word_dictionary[l] <= hand[l]:
+                continue
+            else:
+                print("You played the letter "+l+" do you have enough of this letter?")
+                return False
+        print("We have found " + word_lower + " as a valid Scrabble word!")
+        return True
+    else:
+        print(word+" is not a valid Scrabble word.")
+        return False
 
 #
 # Problem #5: Playing a hand
