@@ -277,7 +277,6 @@ def calculate_handlen(hand):
     length = 0
     for x in hand.values():
         length += x
-        print(length)
 
     return length
     
@@ -345,7 +344,7 @@ def play_hand(hand, word_list):
                 # Reject invalid word (print a message)
                 
             # update the user's hand by removing the letters of their inputted word
-            update_hand(hand, val)
+            hand = update_hand(hand, val)
             
 
     # Game is over (user entered '!!' or ran out of letters),
@@ -422,9 +421,17 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
-    
+    num_hands = input("How many hands would you like to play?: ")
+    final_score = 0
+    count = 0
 
+    while count < int(num_hands):
+        hand_score = play_hand(deal_hand(HAND_SIZE) , word_list)
+        final_score += hand_score
+        count += 1
+        print("That was round "+str(count)+"...")
+    
+    print("After playing "+num_hands+" your final score was: "+final_score)    
 
 #
 # Build data structures used for entire session and play game
@@ -433,5 +440,4 @@ def play_game(word_list):
 #
 if __name__ == '__main__':
     word_list = load_words()
-    play_hand(deal_hand(7) , word_list)
     play_game(word_list)
