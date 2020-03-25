@@ -7,6 +7,7 @@
 # Collaborators : <your collaborators>
 # Time spent    : <total time>
 
+import copy
 import math
 import random
 import string
@@ -183,16 +184,20 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
 
+
+    word = word.lower()
+    hand_copy = copy.copy(hand)
+
 # Traverse the word and remove element from dictionary
     for letter in word:
-        if hand[letter]:
-            hand[letter] = hand[letter] - 1
-            if hand[letter] == 0:
-                del hand[letter]
+        if hand_copy[letter]:
+            hand_copy[letter] = hand_copy[letter] - 1
+            if hand_copy[letter] == 0:
+                del hand_copy[letter]
         else:
             continue
 
-    return hand
+    return hand_copy
 
 #
 # Problem #3: Test word validity
