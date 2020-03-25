@@ -92,8 +92,23 @@ def get_word_score(word, n):
     returns: int >= 0
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    word_lower = word.lower()
+    score_letters = 0
 
+    for letter in word_lower:
+        if not letter == "*":
+            score_letters += SCRABBLE_LETTER_VALUES[letter]
+            print(score_letters)
+
+    word_len = len(word)
+    score_length = 7*word_len - 3*(n-word_len)
+    
+    if score_length < 1:
+        score_length = 1
+    
+    total_score = score_letters + score_length
+
+    return total_score
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -168,7 +183,16 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+# Traverse the word and remove element from dictionary
+    for letter in word:
+        if hand[letter]:
+            hand[letter] = hand[letter] - 1
+            if hand[letter] == 0:
+                del hand[letter]
+        else:
+            continue
+
+    return hand
 
 #
 # Problem #3: Test word validity
