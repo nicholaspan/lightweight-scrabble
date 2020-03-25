@@ -247,6 +247,20 @@ def test_wildcard(word_list):
     if not failure:
         print("SUCCESS: test_wildcard()")
 
+def test_deal_hand():
+    """
+    Unit test for deal_hand
+    """
+    test_hand = deal_hand(10)
+    print("Hand has been dealt.")
+
+    if '*' not in test_hand:
+        print("FAILURE... There has not been a * dealt")
+        return
+
+    print ("Success!")
+
+
 
 word_list = load_words()
 print("----------------------------------------------------------------------")
@@ -261,4 +275,7 @@ test_is_valid_word(word_list)
 print("----------------------------------------------------------------------")
 print("Testing wildcards...")
 test_wildcard(word_list)
+print("----------------------------------------------------------------------")
+print("Testing hand deal...")
+test_deal_hand()
 print("All done!")

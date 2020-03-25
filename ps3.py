@@ -149,6 +149,7 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     
+    n=n-1
     hand={}
     num_vowels = int(math.ceil(n / 3))
 
@@ -160,6 +161,8 @@ def deal_hand(n):
         x = random.choice(CONSONANTS)
         hand[x] = hand.get(x, 0) + 1
     
+    hand['*'] = 1
+    print(hand)
     return hand
 
 #
@@ -213,8 +216,9 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+
     word_lower = word.lower()
-    
+
     if word_lower in word_list:
         word_dictionary = get_frequency_dict(word_lower)
         for l in word_dictionary.keys():
@@ -226,8 +230,35 @@ def is_valid_word(word, hand, word_list):
             else:
                 print("You played the letter "+l+" do you have enough of this letter?")
                 return False
-        print("We have found " + word_lower + " as a valid Scrabble word!")
+        print("You have successfully played: "+word)
         return True
+
+    elif '*' in word_lower:
+        for x in VOWELS:
+            word_lower2 = word_lower.replace('*', x)
+            count = 0
+
+            copy_hand = copy.copy(hand)
+            if x in copy_hand.keys():
+                copy_hand[x] = copy_hand[x]+1
+            else:
+                copy_hand[x] = 1
+
+            if word_lower2 in word_list:
+                word_dictionary = get_frequency_dict(word_lower)
+            
+                for l in word_dictionary.keys():
+                    if l not in copy_hand.keys():
+                        print("You do not have letter "+l+" in your hand!")
+                        return False
+                    elif word_dictionary[l] <= copy_hand[l]:
+                        continue
+                    else:
+                        print("Do you have enough of letter: " + l + "?")
+                        return False
+                return True
+
+
     else:
         print(word+" is not a valid Scrabble word.")
         return False
